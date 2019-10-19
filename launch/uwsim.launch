@@ -1,0 +1,12 @@
+<launch>
+	<arg name="enableShadders" default="true" />
+	<arg name="sceneXml" default="pipeFollowing_basic.xml" />
+	
+        <remap from="/dataNavigator" to="/g500/ros_odom_to_pat" />
+
+<!-- Run UWSim -->
+	<node if="$(arg enableShadders)" name="uwsim" pkg="uwsim" type="uwsim" args=" --configfile $(arg sceneXml) --dataPath $(find uwsim)/data/scenes/" respawn="false"/>
+	<node unless="$(arg enableShadders)" name="uwsim" pkg="uwsim" type="uwsim" args=" --configfile $(arg sceneXml) --dataPath $(find uwsim)/data/scenes/ --disableShaders" respawn="false"/>
+
+
+</launch>
